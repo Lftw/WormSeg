@@ -39,8 +39,6 @@ args = TrainingArguments(
     report_to="none",  # turn off wandb/hf logging unless you want it
 )
 
-# trainer
-
 # Custom Trainer to move data to GPU in training step
 from transformers import Trainer
 
