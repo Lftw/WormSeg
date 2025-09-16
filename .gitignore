@@ -1,0 +1,5 @@
+myvenv/
+output*
+datasetcreation/worm-segformer
+__pycache__/
+datasetcreation/1030_masks/
