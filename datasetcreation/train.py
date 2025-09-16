@@ -40,12 +40,26 @@ args = TrainingArguments(
 )
 
 # trainer
-trainer = Trainer(
+
+# Custom Trainer to move data to GPU in training step
+from transformers import Trainer
+
+class CustomTrainer(Trainer):
+    def training_step(self, model, inputs):
+        # Move all tensors in inputs to device
+        device = model.device
+        for k, v in inputs.items():
+            if isinstance(v, torch.Tensor):
+                inputs[k] = v.to(device)
+        return super().training_step(model, inputs)
+
+trainer = CustomTrainer(
     model=model,
     args=args,
     train_dataset=train_dataset,
     eval_dataset=val_dataset,
 )
 
-# train
-trainer.train()
+# Train and save best checkpoint
+train_result = trainer.train()
+trainer.save_model("worm-segformer/best-checkpoint")
