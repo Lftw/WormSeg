@@ -2,4 +2,4 @@ myvenv/
 output*
 datasetcreation/worm-segformer
 __pycache__/
-1030_masks_old
+1030_masks
